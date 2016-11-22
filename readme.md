@@ -8,7 +8,7 @@ The scanner is using the finite state machine in it's core algorithm to identify
 1. install dependencies.
 2. git clone or zip download.
 
-### Dependencies 
+#### Dependencies 
 
 
 ```
