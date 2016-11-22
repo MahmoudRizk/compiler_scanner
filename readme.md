@@ -5,7 +5,7 @@ Scanning is  the process of converting a sequence of characters (such as in a co
 The scanner is using the finite state machine in it's core algorithm to identify three types of tokens [ Number, identifier, Special Symbol ].<br />
 ![Alt text](/a.png?raw=true "Finite state machine") <br />
 ## Installation
-1. install dependencies.
+1. Install dependencies.
 2. git clone or zip download.
 
 #### Dependencies 
