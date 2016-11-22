@@ -1,11 +1,19 @@
+import sys
+
 from transitions import Machine
 ## pip install transitions
 
 class Scanner(object):
 
+    # states: state machine names
+    # reserved: list of reserved words
+
     states=['START','INNUM','INID','INASSIGN','DONE']
     accepted_state='DONE'
-    reserved=['if','then','else','end','repeat','until','read','write','break']
+    reserved=['if','then','else','end','repeat','until',
+		'read','write','break','for','while',
+		'int','float','char','bool','void','main',
+		'return', 'endl', 'cout']
 
     def __init__(self,s):
         # ':' ---> __
@@ -53,7 +61,8 @@ class Scanner(object):
             return 'other'
 
     def run_(self):
-        # Main program.
+
+        	########### Main Algorithm ###########.
 
         character='' ## for concatenation of same type characters
         i=0 ## for itteration over input_string
@@ -87,21 +96,16 @@ class Scanner(object):
             except:
                 self.previous_state = self.state
                 self.other()
-
-
             if self.isaccepted():
                 if(self.previous_state == 'INNUM'):
-                    self.tokens.update({character:'number'})
+                    self.tokens.update({character:'Number'})
                     character=''
-
                 elif(self.previous_state == 'INID'):
-                    self.tokens.update({character:'identifier'})
+                    self.tokens.update({character:'Identifier'})
                     character = ''
-
                 elif (self.previous_state == 'INASSIGN'):
                     self.tokens.update({character:'SS'})
                     character = ''
-
                 elif (self.previous_state == 'START'):
                     character=self.input_string[i]
                     self.tokens.update({character:'SS'})
@@ -123,9 +127,36 @@ class Scanner(object):
     def exec_(self):
         self.run_()
         self.handle_reserved()
-        self.print_tokens()
+        #self.print_tokens()
 
-expression='if(x:=5) break; else x=7;'
-print expression
-s=Scanner(expression)
-s.exec_()
+    def return_token(self):
+	return self.tokens
+
+
+if __name__=="__main__":
+	a=''
+	b=''
+	try:
+		a=sys.argv[1]
+		b=sys.argv[2]
+	except:
+		print 'ERROR*:'
+		print '--> Enter Input.txt/Output.txt file(s) path.'
+		print '--> Example: python scanner.py input.txt output.txt'
+		sys.exit()
+
+	input_file=open(a,'r')
+	output_file=open(b,'r+')
+	strr=input_file.read()
+	s=Scanner(strr)
+	s.exec_()
+	tokens=s.return_token()
+
+	for key in (tokens):
+		if(key.isspace()):
+			continue
+		output_file.write(key)
+		output_file.write(' -----> ')
+		output_file.write(str(tokens[key]))
+		output_file.write("\n")
+	output_file.close()
