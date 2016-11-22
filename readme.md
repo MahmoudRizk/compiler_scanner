@@ -7,14 +7,18 @@ To be able to use it, you need to install it's dependencies.
 ## Installation
 1. install dependencies.
 2. git clone or zip download.
+
 ### Dependencies 
+
 
 ```
 pip install transitions
 ```
 ## Usage
-python scanner.py input.txt output.txt
 
-where:
+```
+python scanner.py input.txt output.txt
+```
+#### where:
 input.txt: is the input file.
 output.txt: is the output file.
